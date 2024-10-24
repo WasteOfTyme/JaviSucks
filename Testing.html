@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bomb Defuse Game</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #message {
+            margin-top: 20%;
+            font-size: 2em;
+        }
+        #timer {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+        #hiddenButton {
+            background-color: black;
+            border: none;
+            color: black;
+            position: absolute;
+            top: 30%; /* Adjust for positioning */
+            left: 50%; /* Adjust for positioning */
+            transform: translate(-50%, -50%);
+            padding: 15px 30px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        @keyframes explosion {
+            0% { background-color: black; }
+            100% { background-color: red; }
+        }
+        .explosion {
+            animation: explosion 0.1s infinite alternate;
+        }
+    </style>
+</head>
+<body>
+    <div id="message">Find the button to defuse the bomb</div>
+    <div id="timer">15</div>
+
+    <!-- Hidden Button -->
+    <button id="hiddenButton" onclick="defuseBomb()">Defuse</button>
+
+    <script>
+        let timeLeft = 15;
+        const timerElement = document.getElementById('timer');
+        const hiddenButton = document.getElementById('hiddenButton');
+        let timerInterval = setInterval(updateTimer, 1000);
+
+        // Timer countdown function
+        function updateTimer() {
+            timeLeft--;
+            timerElement.textContent = timeLeft;
+
+            if (timeLeft === 0) {
+                clearInterval(timerInterval);
+                triggerExplosion();
+            }
+        }
+
+        // Defuse the bomb
+        function defuseBomb() {
+            clearInterval(timerInterval);
+            window.location.href = "https://www.google.com/search?sca_esv=08df9a6e0ef724db&sxsrf=ADLYWIIoKcOFCRz75S4X8Co9fn705NJvZA:1729734643333&q=cats&udm=2&fbs=AEQNm0A-5VTqs5rweptgTqb6m-Eb3TvVcv4l7eCyod9RtZW9874wvsYjTfpwMQKGHqKPG-IB7j9flyfH28tJSLVuVdcT1tesPpIhTR_8sOQ3FQrQWiVTfWhoIplDgGh5JzUv9F4u3riMB636EHR41DrkNY_uSRk347tLZsVeJqqyuWPTyXrtg-EYkFQYZqw6rWM1khGHS26HrYFGhj2QeE1uCS-2MrLbBw&sa=X&ved=2ahUKEwjg1OLX86WJAxXfIUQIHX2hM9YQtKgLegQIDRAB&biw=1920&bih=953&dpr=1"; // Place your link here
+        }
+
+        // Explosion animation and auto refresh
+        function triggerExplosion() {
+            document.body.classList.add('explosion');
+            document.getElementById('message').textContent = "Try again!";
+            setTimeout(() => {
+                location.reload();
+            }, 2000); // Reload the page after 2 seconds
+        }
+    </script>
+</body>
+</html>
